@@ -114,7 +114,9 @@ Open src/Infrastructure/DocumentProcessor.Api/appsettings.json and set your data
 3. **Apply Database Migrations:**
 In Visual Studio, open the Package Manager Console, set Default Project to DocumentProcessor.Infrastructure, and run:
 
+```text
 Update-Database
+```
 
 4. **Run the Application:**
 
@@ -124,6 +126,7 @@ Press F5 or click Run.
 
 Navigate to https://localhost:7123/swagger in your browser to test the endpoints interactively.
 
+---
 
 **Running Unit Tests**
 To run the unit test suite across domain and application logic:
@@ -134,5 +137,6 @@ Click Run All Tests.
 
 Or run via CLI using:
 
+```text
 dotnet test
-
+```
