@@ -14,6 +14,7 @@ Built following **Clean Architecture**, **SOLID principles**, and **Domain-Drive
 
 The project is structured into 4 decoupled layers enforcing strict dependency rules:
 
+```text
 DocumentProcessor/
 ├── src/
 │   ├── Core/
@@ -28,14 +29,12 @@ DocumentProcessor/
     └── DocumentProcessor.UnitTests/           # Unit & Integration Tests (xUnit + Moq)
         ├── Application/
         │   └── UseCases/
-        │
         ├── Domain/
         │   └── Entities/
-        │ 
         └── Infrastructure/
             └── Services/
-             
-     
+```
+
 - **Domain Layer:** Pure C# domain entities, enums, and value objects without external framework dependencies.
 - **Application Layer:** Orchestrates business logic, use cases, interfaces (`IOpenAIService`, `IDocumentRepository`), and validation.
 - **Infrastructure Layer:** Concrete implementations for database persistence (Entity Framework Core), file storage, PDF text extraction (`PdfPig`), and OpenAI API integration.
@@ -101,7 +100,7 @@ DocumentProcessor/
 2. **Configure Environment Variables:**
 Open src/Infrastructure/DocumentProcessor.Api/appsettings.json and set your database connection string and OpenAI API key:
 
-
+```text
 {
   "ConnectionStrings": {
     "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=DocumentProcessorDb;Trusted_Connection=True;MultipleActiveResultSets=true"
@@ -110,6 +109,7 @@ Open src/Infrastructure/DocumentProcessor.Api/appsettings.json and set your data
     "ApiKey": "OPENAI-API-KEY-HERE"
   }
 }
+```
 
 3. **Apply Database Migrations:**
 In Visual Studio, open the Package Manager Console, set Default Project to DocumentProcessor.Infrastructure, and run:
