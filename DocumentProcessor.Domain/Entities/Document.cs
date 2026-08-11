@@ -5,7 +5,7 @@ namespace DocumentProcessor.Domain.Entities
 {
     public class Document
     {
-        public Guid Id { 的には private set; get; }
+        public Guid Id { get; private set; }
         public string FileName { get; private set; } = string.Empty;
         public string StorageUrl { get; private set; } = string.Empty;
         public DocumentStatus Status { get; private set; }
