@@ -361,3 +361,19 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# ==========================================
+# Secretos y Configuraciones Locales (.NET)
+# ==========================================
+# Ignorar configuraciones específicas del entorno de desarrollo
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+
+# Archivos de variables de entorno
+.env
+.env.local
+.env.development
+
+# Secretos de usuario de .NET en disco (backup)
+secrets.json

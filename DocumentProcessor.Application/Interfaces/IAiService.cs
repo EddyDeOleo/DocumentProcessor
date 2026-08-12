@@ -2,7 +2,7 @@
 
 namespace DocumentProcessor.Application.Interfaces
 {
-    public interface IOpenAiService
+    public interface IAiService
     {
         Task<ExtractedDataDto> ProcessTextAsync(string rawText, CancellationToken cancellationToken = default);
     }
