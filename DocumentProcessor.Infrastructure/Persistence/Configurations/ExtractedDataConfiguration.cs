@@ -17,20 +17,16 @@ public class ExtractedDataConfiguration : IEntityTypeConfiguration<ExtractedData
             .HasConversion<string>()
             .HasMaxLength(50);
 
-        builder.Property(e => e.VendorName)
-            .HasMaxLength(200);
+        builder.Property(e => e.VendorName).HasMaxLength(200);
+        builder.Property(e => e.TaxId).HasMaxLength(100);
+        builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.ConfidenceScore).IsRequired();
+        builder.Property(e => e.RawJsonResponse).IsRequired().HasColumnType("nvarchar(max)");
 
-        builder.Property(e => e.TaxId)
-            .HasMaxLength(100);
-
-        builder.Property(e => e.TotalAmount)
-            .HasPrecision(18, 2);
-
-        builder.Property(e => e.Currency)
-            .HasMaxLength(10);
-
-        builder.Property(e => e.RawJsonResponse)
-            .IsRequired()
-            .HasColumnType("nvarchar(max)");
+        builder.HasOne(e => e.Document)
+            .WithOne(d => d.ExtractedData)
+            .HasForeignKey<ExtractedData>(e => e.DocumentId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -21,7 +21,7 @@ public class GeminiService : IAiService
         _apiKey = configuration["Gemini:ApiKey"]
             ?? throw new ArgumentNullException("Gemini:ApiKey", "Gemini API Key is missing from configuration.");
 
-        _model = configuration["Gemini:Model"] ?? "gemini-2.5-flash";
+        _model = configuration["Gemini:Model"] ?? "gemini-3.5-flash";
         _baseUrl = configuration["Gemini:BaseUrl"] ?? "https://generativelanguage.googleapis.com/v1beta";
     }
 

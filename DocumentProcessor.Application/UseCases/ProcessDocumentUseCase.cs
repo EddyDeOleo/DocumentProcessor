@@ -29,11 +29,11 @@ public class ProcessDocumentUseCase
         _aiService = aiService;
         _logger = logger;
     }
-    
+
     public async Task<UploadDocumentResponseDto> ExecuteAsync(
-        Stream fileStream,
-        string fileName,
-        CancellationToken cancellationToken = default)
+    Stream fileStream,
+    string fileName,
+    CancellationToken cancellationToken = default)
     {
         ValidateInput(fileStream, fileName);
 
@@ -43,13 +43,14 @@ public class ProcessDocumentUseCase
         var document = new Document(fileName, storageUrl);
         document.MarkAsProcessing();
 
-        await _repository.AddAsync(document, cancellationToken);
-        await _repository.SaveChangesAsync(cancellationToken);
-
         try
         {
             _logger.LogInformation("Extracting text from document ID: {DocumentId}", document.Id);
-            fileStream.Position = 0;
+            if (fileStream.CanSeek)
+            {
+                fileStream.Position = 0;
+            }
+
             var extractedText = await _textExtractor.ExtractTextAsync(fileStream, cancellationToken);
 
             if (string.IsNullOrWhiteSpace(extractedText))
@@ -71,17 +72,19 @@ public class ProcessDocumentUseCase
             );
 
             document.MarkAsCompleted(extractedData);
-            _logger.LogInformation("Document ID: {DocumentId} completed as {Type}", document.Id, aiResult.DocumentType);
+
+            await _repository.AddAsync(document, cancellationToken);
+            await _repository.SaveChangesAsync(cancellationToken);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to process Document ID: {DocumentId}", document.Id);
+
             document.MarkAsFailed();
-            throw;
-        }
-        finally
-        {
+            await _repository.AddAsync(document, cancellationToken);
             await _repository.SaveChangesAsync(cancellationToken);
+
+            throw;
         }
 
         return new UploadDocumentResponseDto(
