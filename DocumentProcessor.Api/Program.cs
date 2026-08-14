@@ -41,6 +41,11 @@ builder.Services.AddHttpClient<IAiService, GeminiService>();
 
 // 4. Application Use Cases Registration
 builder.Services.AddScoped<ProcessDocumentUseCase>();
+builder.Services.AddScoped<DeleteDocumentUseCase>();
+builder.Services.AddScoped<GetDocumentStatusUseCase>();
+builder.Services.AddScoped<GetExtractedDataUseCase>();
+builder.Services.AddScoped<GetDocumentByIdUseCase>();
+builder.Services.AddScoped<GetAllDocumentsUseCase>();
 
 var app = builder.Build();
 
